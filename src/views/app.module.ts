@@ -11,6 +11,8 @@ import { LayoutModule } from './layouts/layouts.module';
 import { ViewComponent } from './view/view.component';
 import { HomeModule } from './view/home/home.module';
 import { PlayerDetailModule } from './view/player-detail/player-detail.module';
+import { AdminModule } from 'src/_admin/admins.module';
+
 
 
 @NgModule({
@@ -22,10 +24,11 @@ import { PlayerDetailModule } from './view/player-detail/player-detail.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-
     LayoutModule,
     HomeModule,
-    PlayerDetailModule
+    PlayerDetailModule,
+    AdminModule,
+    
   ],
   providers: [
     ScriptLoaderService   
