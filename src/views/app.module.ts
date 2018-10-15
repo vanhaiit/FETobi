@@ -12,7 +12,7 @@ import { ViewComponent } from './view/view.component';
 import { HomeModule } from './view/home/home.module';
 import { PlayerDetailModule } from './view/player-detail/player-detail.module';
 import { AdminModule } from 'src/_admin/admins.module';
-import { SigupModule } from './view/sigup/sigup.module';
+import { SignupModule } from './view/signup/signup.module';
 
 
 
@@ -29,7 +29,7 @@ import { SigupModule } from './view/sigup/sigup.module';
     HomeModule,
     PlayerDetailModule,
     AdminModule,
-    SigupModule
+    SignupModule
     
   ],
   providers: [

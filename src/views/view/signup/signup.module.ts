@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutModule } from '../../layouts/layouts.module';
 import { ViewComponent } from '../view.component';
-import { SigupComponent } from './sigup.component';
+import { SignupComponent } from './signup.component';
+import { FormsModule } from '@angular/forms';
+import { Utilities } from 'src/models/utilities';
+import { UserControllerServices } from 'src/controllers/users.controllers';
 
 
 
@@ -14,7 +17,7 @@ const routes: Routes = [
         "component": ViewComponent,
         "children": [
             {
-                "path": "sigup", "component": SigupComponent
+                "path": "signup", "component": SignupComponent
             }
         ]
     }
@@ -24,11 +27,16 @@ const routes: Routes = [
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
-        LayoutModule
+        LayoutModule,
+        FormsModule
     ], declarations: [
-        SigupComponent
-    ], exports: [RouterModule]
+        SignupComponent
+    ], exports: [RouterModule],
+    providers: [
+        UserControllerServices ,
+        Utilities
+      ],
 })
-export class SigupModule {
+export class SignupModule {
     
 }

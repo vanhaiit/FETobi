@@ -39,9 +39,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 if (!response.access_token) {
                     this.message = "Có lỗi hệ thống";
                 } else {
-                    this._utilites.setCookie("SS_U_ID", response.access_token.toString(), 30);
+                    this._utilites.setCookie("SS_U_ID", "bearer "+ response.access_token.toString(), 30);
                     window.location.href = "/";
-                    return true;
+                    return true; 
                 }
             }
 

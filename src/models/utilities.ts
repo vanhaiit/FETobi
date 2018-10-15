@@ -72,7 +72,7 @@ export class Utilities {
         const token = this.getCookie("SS_U_ID");
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        if (token) headers.append("x-request-id", token);
+        if (token) headers.append("Authorization", token);
         else headers.append("x-request-id", null);
         return new RequestOptions({ headers: headers });
     }
