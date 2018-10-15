@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from 'src/_auth/login/login.component';
 import { UserControllerServices } from 'src/controllers/users.controllers';
 import { FormsModule } from '@angular/forms';
+import { Utilities } from 'src/models/utilities';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
         FormsModule
     ],
     providers: [
-        UserControllerServices 
+        UserControllerServices ,
+        Utilities
       ],
 })
 export class LayoutModule {

@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { ScriptLoaderService } from '../_services/script-loader.service';
 
+
 @Component({
   selector: 'body',
   templateUrl: './app.component.html',

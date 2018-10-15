@@ -12,6 +12,7 @@ import { ViewComponent } from './view/view.component';
 import { HomeModule } from './view/home/home.module';
 import { PlayerDetailModule } from './view/player-detail/player-detail.module';
 import { AdminModule } from 'src/_admin/admins.module';
+import { SigupModule } from './view/sigup/sigup.module';
 
 
 
@@ -28,6 +29,7 @@ import { AdminModule } from 'src/_admin/admins.module';
     HomeModule,
     PlayerDetailModule,
     AdminModule,
+    SigupModule
     
   ],
   providers: [
