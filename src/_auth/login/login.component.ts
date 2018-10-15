@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { UserControllerServices } from 'src/controllers/users.controllers';
 
 declare let mLayout: any;
 
@@ -9,15 +10,22 @@ declare let mLayout: any;
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
+    model: any = {};
 
-    constructor() {
+    constructor(private userController: UserControllerServices) {
 
     }
     ngOnInit() {
-
     }
     ngAfterViewInit() {
-        
+    }
+    userLogin() {
+        this.userController.login(this.model.email, this.model.password).then((response: any) => {
+            this.model = response;
+            console.log(response);
+        }, error => {
+            console.log(error);
+        });
     }
 
 }
