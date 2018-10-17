@@ -13,8 +13,20 @@ import { HomeModule } from './view/home/home.module';
 import { PlayerDetailModule } from './view/player-detail/player-detail.module';
 import { AdminModule } from 'src/_admin/admins.module';
 import { SignupModule } from './view/signup/signup.module';
+import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 
-
+// Configs 
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("48680544510-0moon3v0pdu84ppf1ufjismijqkckuvl.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("296708850931042")
+  }
+]);
 
 @NgModule({
   declarations: [
@@ -29,7 +41,8 @@ import { SignupModule } from './view/signup/signup.module';
     HomeModule,
     PlayerDetailModule,
     AdminModule,
-    SignupModule
+    SignupModule,
+    SocialLoginModule.initialize(config)
     
   ],
   providers: [

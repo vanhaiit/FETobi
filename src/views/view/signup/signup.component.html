@@ -7,58 +7,106 @@
                     <h3 class="mtext-111 cl2 p-b-16">
                         Đăng Ký
                     </h3>
-                    <form autocomplete="off" (ngSubmit)="f.form.valid && signup()" #f="ngForm" id="frm-signup"
-                        action="">
+                    <form autocomplete="off" (ngSubmit)="signup(f)" #f="ngForm" id="frm-signup" action="">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="UserName">Tài khoản:</label>
+                                    <label for="UserName" class="requi">
+                                        <span>Tài khoản</span>
+                                        <div style="float:right;" *ngIf="UserName.dirty || UserName.touched">
+                                            <i *ngIf="UserName.invalid" class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="UserName.valid" class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div>
+                                    </label>
                                     <input type="text" [(ngModel)]="model.UserName" #UserName="ngModel" name="UserName"
-                                        class="form-control" id="UserName">
+                                        class="form-control" id="UserName" placeholder="Từ 6 đến 32 ký tự" required
+                                        minlength="5" maxlength="30" pattern="^[A-Za-z0-9_\.]{6,32}$">
                                 </div>
                                 <div class="form-group">
-                                    <label for="FullName">Tên hiển thị:</label>
+                                    <label for="FullName" class="requi">
+                                        <span>Tên hiển thị</span>
+                                        <div style="float:right;" *ngIf="FullName.dirty || FullName.touched">
+                                            <i *ngIf="FullName.invalid" class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="FullName.valid" class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div>
+                                    </label>
                                     <input type="text" [(ngModel)]="model.FullName" #FullName="ngModel" name="FullName"
-                                        class="form-control" id="FullName">
+                                        class="form-control" id="FullName" placeholder="Tối đa 32 ký tự" required
+                                        minlength="1" maxlength="32">
                                 </div>
 
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="PassWord">Mật khẩu:</label>
-                                    <input type="password" [(ngModel)]="model.PassWord" #PassWord="ngModel" name="PassWord"
-                                        class="form-control" id="PassWord">
+                                    <label for="Password" class="requi">
+                                        <span>Mật khẩu</span>
+                                        <div style="float:right;" *ngIf="Password.dirty || Password.touched">
+                                            <i *ngIf="Password.invalid" class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="Password.valid" class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div>
+                                    </label>
+                                    <input type="password" [(ngModel)]="model.Password" #Password="ngModel" name="Password"
+                                        class="form-control" id="Password" placeholder="Từ 6 đến 16 ký tự" required
+                                        minlength="6" maxlength="16" pattern="^[\w_\.!@#$%^&*()]{6,16}$">
                                 </div>
                                 <div class="form-group">
-                                    <label for="PassWordConfirm">Xác nhận mật khẩu:</label>
-                                    <input type="password" [(ngModel)]="model.PassWordConfirm" #PassWordConfirm="ngModel"
-                                        name="PassWordConfirm" class="form-control" id="PassWordConfirm">
+                                    <label for="PasswordConfirm" class="requi">
+                                        <span>Xác nhận mật khẩu</span>
+                                        <div style="float:right;" *ngIf="PasswordConfirm.dirty || PasswordConfirm.touched">
+                                            <i *ngIf="PasswordConfirm.invalid || model.PasswordConfirm != model.Password"
+                                                class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="PasswordConfirm.valid && model.PasswordConfirm === model.Password"
+                                                class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div>
+                                    </label>
+                                    <input type="password" [(ngModel)]="model.PasswordConfirm" #PasswordConfirm="ngModel"
+                                        name="PasswordConfirm" class="form-control" id="PasswordConfirm" placeholder="Nhập lại mật khẩu của bạn"
+                                        required minlength="6" maxlength="16">
                                 </div>
 
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="Email">Email:</label>
+                                    <label for="Email" class="requi">
+                                        <span>Email</span>
+                                        <div style="float:right;" *ngIf="Email.dirty || Email.touched">
+                                            <i *ngIf="Email.invalid" class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="Email.valid" class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div>
+                                    </label>
                                     <input type="email" [(ngModel)]="model.Email" #Email="ngModel" name="Email" class="form-control"
-                                        id="Email">
+                                        id="Email" placeholder="Email xác thực tài khoản" required pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Address">Địa chỉ:</label>
+                                    <label for="Address">
+                                        <span>Địa chỉ</span>
+
+                                    </label>
                                     <input type="text" [(ngModel)]="model.Address" #Address="ngModel" name="Address"
-                                        class="form-control" id="Address">
+                                        class="form-control" id="Address" placeholder="Tối đa 100 ký tự" maxlength="100">
                                 </div>
 
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="BirthDay">Ngày sinh:</label>
+                                    <label for="BirthDay">
+                                        <span>Ngày sinh</span>
+
+                                    </label>
                                     <input type="date" [(ngModel)]="model.BirthDay" #BirthDay="ngModel" name="BirthDay"
                                         class="form-control" id="BirthDay">
                                 </div>
                                 <div class="form-group">
-                                    <label for="PhoneNumber">Số điện thoại:</label>
+                                    <label for="PhoneNumber" class="requi">
+                                        <span>Số điện thoại</span>
+                                        <div style="float:right;" *ngIf="PhoneNumber.dirty || PhoneNumber.touched">
+                                            <i *ngIf="PhoneNumber.invalid" class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="PhoneNumber.valid" class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div>
+                                    </label>
                                     <input type="text" [(ngModel)]="model.PhoneNumber" #PhoneNumber="ngModel" name="PhoneNumber"
-                                        class="form-control" id="PhoneNumber">
+                                        class="form-control" id="PhoneNumber" placeholder="Nhập đúng định dạng số điện thoại"
+                                        required minlength="10" maxlength="12" pattern="^(0[3|5|7|8|9])+([0-9]{8})|^(09|01[2|6|8|9])+([0-9]{8})$">
                                 </div>
                             </div>
                         </div>
@@ -68,9 +116,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <a (click)="signup()" href="javascript:;" style="width: 50%; float: right;" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                                    <button type="submit" href="javascript:;" style="width: 50%; float: right;" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
                                         Đăng ký
-                                    </a>
+                                    </button>
 
                                 </div>
 

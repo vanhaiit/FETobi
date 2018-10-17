@@ -28,7 +28,7 @@ export class UserControllerServices {
             .then(result => result.json());
     }
     getUserByName(key: string) {
-        return this._http.get(ApiClient.url + `api/user/getbyname/${key}`, this._utilities.jwt()).toPromise()
+        return this._http.get(ApiClient.url + `api/account/getbyname?key=${key}`, this._utilities.jwt()).toPromise()
             .then(result => result.json());
     }
 
