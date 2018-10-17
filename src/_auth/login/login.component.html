@@ -1,10 +1,11 @@
 <div class="s-full js-hide-cart"></div>
 
 <div class="header-cart flex-col-l p-l-65 p-r-25">
-  <div class="header-cart-title flex-w flex-sb-m p-b-8">
-    <span class="mtext-103 cl2">
+  <div class="header-cart-title flex-w flex-sb-m p-b-8" style="min-height: 50px">
+    <span *ngIf="!display_user" class="mtext-103 cl2">
       Đăng Nhập & Đăng Ký
     </span>
+
 
     <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
       <i class="zmdi zmdi-close"></i>
@@ -18,7 +19,119 @@
 
   </div> -->
   <form autocomplete="off" (ngSubmit)="f.form.valid && userLogin($event)" #f="ngForm" id="frm-login" action="">
-    <div class="header-cart-content flex-w js-pscroll">
+
+    <div *ngIf="display_user" class="header-cart-content flex-w js-pscroll">
+      <div class="block1 wrap-pic-w">
+        <img src="assets/images/banner-04.jpg" alt="IMG-BANNER">
+
+        <a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+          <div class="block1-txt-child1 flex-col-l">
+            <span class="block1-name ltext-102 trans-04 p-b-8" style="color: white">
+             {{account.FullName}}
+            </span>
+
+            <span class="block1-info stext-102 trans-04"  style="color: white">
+              {{account.PhoneNumber}}
+            </span>
+          </div>
+
+          <div class="block1-txt-child2 p-b-4 trans-05">
+            <div class="block1-link stext-101 cl0 trans-09 cursor">
+             Thay đổi avata
+            </div>
+          </div>
+        </a>
+      </div>
+      <hr>
+      <ul style="margin-top: 10px" class="header-cart-wrapitem w-full">
+        <li class="header-cart-item flex-w flex-t m-b-12" style="border: 1px solid #f9efef;">
+          <div style="width: 20%;" class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+            <i class="fa fa-history"></i>
+          </div>
+          <div class="header-cart-item-txt p-t-8 cursor">
+            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+              Lịch sử giao dịch
+            </a>
+            <span class="header-cart-item-info">
+            </span>
+          </div>
+        </li>
+
+        <li class="header-cart-item flex-w flex-t m-b-12" style="border: 1px solid #f9efef;">
+          <div style="width: 20%;" class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+            <i class="fa fa-credit-card"></i>
+          </div>
+
+          <div class="header-cart-item-txt p-t-8 cursor">
+            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+              Mua cart
+            </a>
+            <span class="header-cart-item-info">
+            </span>
+          </div>
+        </li>
+
+        <li class="header-cart-item flex-w flex-t m-b-12" style="border: 1px solid #f9efef;">
+          <div style="width: 20%;" class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+            <i class="fa fa-btc"></i>
+          </div>
+
+          <div class="header-cart-item-txt p-t-8 cursor">
+            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+              Nạp tiền
+            </a>
+            <span class="header-cart-item-info">
+            </span>
+          </div>
+        </li>
+
+        <li class="header-cart-item flex-w flex-t m-b-12" style="border: 1px solid #f9efef;">
+          <div style="width: 20%;" class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+            <i class="fa fa-thumbs-o-up"></i>
+          </div>
+
+          <div class="header-cart-item-txt p-t-8 cursor">
+            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+              Lượt quan tâm
+            </a>
+            <span class="header-cart-item-info">
+            </span>
+          </div>
+        </li>
+
+        <li class="header-cart-item flex-w flex-t m-b-12" style="border: 1px solid #f9efef;">
+          <div style="width: 20%;" class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+            <i class="fa fa-universal-access"></i>
+          </div>
+
+          <div class="header-cart-item-txt p-t-8 cursor">
+            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+              Thông tin tài khoản
+            </a>
+            <span class="header-cart-item-info">
+            </span>
+          </div>
+        </li>
+
+        <li (click)="signOut()" class="header-cart-item flex-w flex-t m-b-12" style="border: 1px solid #f9efef;">
+          <div style="width: 20%;" class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+              <i class="fa fa-sign-out"></i>
+          </div>
+
+          <div  class="header-cart-item-txt p-t-8 cursor">
+            <a  class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+              Đăng xuất
+            </a>
+            <span class="header-cart-item-info">
+            </span>
+          </div>
+        </li>
+
+      </ul>
+      <div class="w-full">
+      </div>
+    </div>
+    <div *ngIf="!display_user" class="header-cart-content flex-w js-pscroll">
       <ul class="header-cart-wrapitem w-full">
         <li class="header-cart-item flex-w flex-t m-b-12">
           <div class="bor8 m-b-20 how-pos4-parent">
@@ -39,7 +152,8 @@
         <li class="header-cart-item flex-w flex-t m-b-12">
           <div class="form-check-inline">
             <label class="form-check-label" for="check1" style="display: flex">
-              <input type="checkbox" class="form-check-input" id="check1" name="vehicle1" value="something" checked>  Lưu đăng nhập
+              <input type="checkbox" class="form-check-input" id="check1" name="vehicle1" value="something" checked>  Lưu
+              đăng nhập
             </label>
           </div>
         </li>
@@ -73,5 +187,6 @@
 
       </div>
     </div>
+
   </form>
 </div>

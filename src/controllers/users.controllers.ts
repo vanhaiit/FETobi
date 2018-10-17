@@ -11,7 +11,7 @@ import { Utilities } from 'src/models/utilities';
 export class UserControllerServices {
     constructor(
         private _http: Http,
-        private _utilities : Utilities
+        private _utilities: Utilities
     ) {
 
     }
@@ -23,10 +23,15 @@ export class UserControllerServices {
         return this._http.post(ApiClient.url + `oauth/token`, data, { headers }).toPromise().then(result => result.json());
     }
 
-    signup(account : UserModel){
+    signup(account: UserModel) {
         return this._http.post(ApiClient.url + `api/account/signup`, account, this._utilities.jwt()).toPromise()
-        .then(result => result.json());
+            .then(result => result.json());
     }
+    getUserByName(key: string) {
+        return this._http.get(ApiClient.url + `api/user/getbyname/${key}`, this._utilities.jwt()).toPromise()
+            .then(result => result.json());
+    }
+
 
 }
 

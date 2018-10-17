@@ -14,13 +14,26 @@ export class LoginComponent implements OnInit, AfterViewInit {
     loading = false;
     message = null;
     returnUrl: string;
+    display_user = false;
+    account: any = {};
 
     constructor(private userController: UserControllerServices,
         private _utilites: Utilities, ) {
     }
     ngOnInit() {
+        const key = localStorage.getItem("user");
+        if (key) this.account = JSON.parse(key), this.display_user = true;
     }
-
+    signOut() {
+        try {
+            localStorage.removeItem("user");
+            document.cookie = "SS_U_ID=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/";
+            return true;
+        } catch (ex) {
+            return false;
+        }
+    }
     userLogin() {
         this.model.password = this.model.password.trim();
         this.model.email = this.model.email.trim();
@@ -39,9 +52,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 if (!response.access_token) {
                     this.message = "Có lỗi hệ thống";
                 } else {
-                    this._utilites.setCookie("SS_U_ID", "bearer "+ response.access_token.toString(), 30);
-                    window.location.href = "/";
-                    return true; 
+                    this.model.password = "private"
+                    this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
+                    this.userController.getUserByName(this.model.email).then(async res => {
+                        localStorage.setItem("user", JSON.stringify(res));
+                        window.location.href = "/";
+                    })
+                    return true;
                 }
             }
 

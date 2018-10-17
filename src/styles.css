@@ -14,6 +14,10 @@
 @import "assets/css/util.css";
 @import "assets/css/main.css";
 
+.cursor {
+    cursor: pointer;
+}
+
 
 
 
