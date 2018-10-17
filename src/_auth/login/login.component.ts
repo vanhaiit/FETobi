@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { UserControllerServices } from 'src/controllers/users.controllers';
 import { Utilities } from 'src/models/utilities';
+import { AuthService, SocialUser } from "angular4-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 
 declare let mLayout: any;
 
@@ -14,10 +16,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
     loading = false;
     message = null;
     returnUrl: string;
+    private _user: any = {};
 
-    constructor(private userController: UserControllerServices,
-        private _utilites: Utilities, ) {
-    }
+
+    constructor(
+        private _authService: AuthService,
+        private _userController: UserControllerServices,
+        private _utilites: Utilities
+    ) { }
     ngOnInit() {
     }
 
@@ -32,16 +38,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.message = "Độ dài không hợp lệ xin vui lòng thử lại.!";
             return this.loading = false;
         }
-        this.userController.login(this.model.email, this.model.password).then((response: any) => {
+        this._userController.login(this.model.email, this.model.password).then((response: any) => {
             if (response.error) {
                 this.message = response.error;
             } else {
                 if (!response.access_token) {
                     this.message = "Có lỗi hệ thống";
                 } else {
-                    this._utilites.setCookie("SS_U_ID", "bearer "+ response.access_token.toString(), 30);
+                    this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
                     window.location.href = "/";
-                    return true; 
+                    return true;
                 }
             }
 
@@ -49,6 +55,44 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.message = error;
         })
     }
+
+    socialSignIn(socialPlatform: string) {
+        let socialPlatformProvider;
+        if (socialPlatform == "facebook") {
+            socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+        } else if (socialPlatform == "google") {
+            socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+        }
+
+        this._authService.signIn(socialPlatformProvider).then((userData) => {
+            console.log(userData);
+            this._user.UserName = userData.email;
+            this._user.Email = userData.email;
+            this._user.FullName = userData.name;
+            this._user.Password = userData.id;
+            this._user.Avatar = userData.photoUrl;
+
+            this._userController.signup(this._user).then(result => {
+                console.log(result);
+                this._userController.login(this.model.UserName, this.model.Password).then((response: any) => {
+                    if (response.error) {
+                        this.message = response.error;
+                    } else {
+                        if (!response.access_token) {
+                            this.message = "Có lỗi hệ thống";
+                        } else {
+                            this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
+                            window.location.href = "/";
+                            return true;
+                        }
+                    }
+                }).catch(error => {
+                    this.message = error;
+                })
+            });
+        });
+    }
+
     ngAfterViewInit() {
 
     }
