@@ -14,11 +14,11 @@ declare let mLayout: any;
 })
 export class LoginComponent implements OnInit, AfterViewInit {
     model: any = {};
-    loading = false;
     message = null;
     returnUrl: string;
     display_user = false;
     account: any = {};
+    load = false;
     private _user: any = {};
 
 
@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     ) { }
     ngOnInit() {
         const key = localStorage.getItem("user");
-        if (key) this.account = JSON.parse(key), this.display_user = true;
+        if (key) this.account = JSON.parse(key), this.display_user = true, this.account.FullName = this.account.FullName.toUpperCase();
+
     }
     signOut() {
         try {
@@ -42,19 +43,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }
     }
     userLogin() {
+        this.load = true;
         this.model.password = this.model.password.trim();
         this.model.email = this.model.email.trim();
         if (!this.model.email || !this.model.password) {
             this.message = "Xin vui lòng nhập đầy đủ thông tin.!";
-            return this.loading = false;
+            return this.load = false;
         }
         if (this.model.email.length < 3 || this.model.password.length < 3) {
             this.message = "Độ dài không hợp lệ xin vui lòng thử lại.!";
-            return this.loading = false;
+            return this.load = false;
         }
         this._userController.login(this.model.email, this.model.password).then((response: any) => {
             if (response.error) {
-                this.message = response.error;
+                this.message = "Tài khoản hoặc mật khẩu không đúng !";
             } else {
                 if (!response.access_token) {
                     this.message = "Có lỗi hệ thống";
@@ -63,6 +65,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
                     this._userController.getUserByName(this.model.email).then(async res => {
                         localStorage.setItem("user", JSON.stringify(res));
+                        this.load = false;
                         window.location.href = "/";
                     })
                     return true;
@@ -70,11 +73,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
             }
 
         }).catch(error => {
-            this.message = error;
+            if (error._body == '{"error":"invalid_grant"}') this.message = "Tài khoản hoặc mật khẩu không đúng !";
+            return this.load = false;
         })
     }
 
     socialSignIn(socialPlatform: string) {
+        this.load = true;
         let socialPlatformProvider;
         if (socialPlatform == "facebook") {
             socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
@@ -98,8 +103,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
                             } else {
                                 if (!response.access_token) {
                                     this.message = "Có lỗi hệ thống";
+                                    this.load = false
                                 } else {
                                     this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
+                                    this.load = false;
                                     window.location.href = "/";
                                     return true;
                                 }
@@ -107,7 +114,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                         }).catch(error => {
                             this.message = error;
                         })
-                    }else {
+                    } else {
                         this._userController.signup(this._user).then(async result => {
                             this._userController.login(this._user.UserName, this._user.Password).then((response: any) => {
                                 if (response.error) {
@@ -120,6 +127,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                                         this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
                                         this._userController.getUserByName(this._user.UserName).then(async res => {
                                             localStorage.setItem("user", JSON.stringify(res));
+                                            this.load = false;
                                             window.location.href = "/";
                                         })
                                         return true;
@@ -131,8 +139,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
                         });
                     }
                 })
-            } else{
-            console.log("connsect false");
+            } else {
+                console.log("connsect false");
             }
 
         });

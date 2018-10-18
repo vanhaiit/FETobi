@@ -6,18 +6,17 @@
       Đăng Nhập & Đăng Ký
     </span>
 
-
     <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
       <i class="zmdi zmdi-close"></i>
     </div>
-  </div>
-  <!-- <div class="header-cart-title flex-w flex-sb-m p-b-8" style="text-align: center !important;width: 92%;margin: 0 auto;">
-    <span class="mtext-103 cl2" style=" width: 80%; margin: 0 auto; ">
-      Đăng Nhập & Đăng Ký
+    <span *ngIf="load" class="cl2">
+      <i class="fa fa-spinner fa-pulse  fa-fw"></i>
+      Loading ...
     </span>
-
-
-  </div> -->
+    <span *ngIf="message" class="cl2 error">
+      {{message}}
+    </span>
+  </div>
   <form autocomplete="off" (ngSubmit)="f.form.valid && userLogin($event)" #f="ngForm" id="frm-login" action="">
 
     <div *ngIf="display_user" class="header-cart-content flex-w js-pscroll">
@@ -119,7 +118,7 @@
           </div>
 
           <div class="header-cart-item-txt p-t-8 cursor">
-            <a class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+            <a id="singout" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
               Đăng xuất
             </a>
             <span class="header-cart-item-info">
@@ -158,11 +157,13 @@
           </div>
         </li>
         <li class="header-cart-item flex-w flex-t m-b-12">
-          <a (click)="userLogin()" href="javascript:;" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10" style="min-width: 130px">
+          <a (click)="userLogin()" id="signin" href="javascript:;" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10"
+            style="min-width: 130px">
             Đăng nhập
           </a>
 
-          <a href="javascript:;" routerLink="/signup" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10 js-hide-cart" style="min-width: 130px">
+          <a href="javascript:;" id="signup" routerLink="/signup" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10 js-hide-cart"
+            style="min-width: 130px">
             Đăng ký
           </a>
         </li>
@@ -174,12 +175,12 @@
           <!--Facebook-->
           <button (click)="socialSignIn('facebook')" type="button" style="margin: 0 auto" class="btn btn-fb bor13 "><i
               class="fa fa-facebook pr-1"></i>
-            Facebook</button>
+            Facebook </button>
 
           <!--Google +-->
           <button (click)="socialSignIn('google')" type="button" style="margin: 0 auto" class="btn btn-gplus bor13 "><i
               class="fa fa-google-plus pr-1"></i>
-            Google +</button>
+            Google + </button>
         </li>
 
       </ul>
