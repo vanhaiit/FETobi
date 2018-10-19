@@ -19,7 +19,7 @@
   </div>
   <form autocomplete="off" (ngSubmit)="f.form.valid && userLogin($event)" #f="ngForm" id="frm-login" action="">
 
-    <div *ngIf="display_user" class="header-cart-content flex-w js-pscroll">
+    <div [hidden]="!display_user" class="header-cart-content flex-w js-pscroll">
       <div class="block1 wrap-pic-w">
         <img src="assets/images/banner-04.jpg" alt="IMG-BANNER">
 

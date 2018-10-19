@@ -28,20 +28,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private _utilites: Utilities
     ) { }
     ngOnInit() {
-        const key = localStorage.getItem("user");
+        const key = localStorage.getItem("user-submit");
         if (key) this.account = JSON.parse(key), this.display_user = true, this.account.FullName = this.account.FullName.toUpperCase();
 
     }
+    
     signOut() {
         try {
-            localStorage.removeItem("user");
+            localStorage.removeItem("user-submit");
             document.cookie = "SS_U_ID=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            window.location.href = "/";
+            this.display_user = false;
             return true;
         } catch (ex) {
             return false;
         }
     }
+
     userLogin() {
         this.load = true;
         this.model.password = this.model.password.trim();
@@ -64,9 +66,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this.model.password = "private"
                     this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
                     this._userController.getUserByName(this.model.email).then(async res => {
-                        localStorage.setItem("user", JSON.stringify(res));
+                        localStorage.setItem("user-submit", JSON.stringify(res));
                         this.load = false;
-                        window.location.href = "/";
+                        this.message = "";
+                        this.display_user = true;
+                        this.ngOnInit();
                     })
                     return true;
                 }
@@ -96,7 +100,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             if (this._user) {
                 this._userController.getUserByName(this._user.UserName).then(async res => {
                     if (!res.Message) {
-                        localStorage.setItem("user", JSON.stringify(res));
+                        localStorage.setItem("user-submit", JSON.stringify(res));
                         this._userController.login(this._user.UserName, this._user.Password).then((response: any) => {
                             if (response.error) {
                                 this.message = response.error;
@@ -105,9 +109,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
                                     this.message = "Có lỗi hệ thống";
                                     this.load = false
                                 } else {
+                                    this.model.password = "private"
                                     this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
                                     this.load = false;
-                                    window.location.href = "/";
+                                    this.message = "";
+                                    this.display_user = true;
+                                    this.ngOnInit();
                                     return true;
                                 }
                             }
@@ -126,9 +133,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
                                         this.model.password = "private"
                                         this._utilites.setCookie("SS_U_ID", "bearer " + response.access_token.toString(), 30);
                                         this._userController.getUserByName(this._user.UserName).then(async res => {
-                                            localStorage.setItem("user", JSON.stringify(res));
+                                            localStorage.setItem("user-submit", JSON.stringify(res));
                                             this.load = false;
-                                            window.location.href = "/";
+                                            this.message = "";
+                                            this.display_user = true;
+                                            this.ngOnInit();
                                         })
                                         return true;
                                     }

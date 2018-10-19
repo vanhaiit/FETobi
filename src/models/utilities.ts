@@ -73,7 +73,7 @@ export class Utilities {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         if (token) headers.append("Authorization", token);
-        else headers.append("x-request-id", null);
+        else headers.append("Authorization", null);
         return new RequestOptions({ headers: headers });
     }
 
