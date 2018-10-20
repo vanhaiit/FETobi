@@ -17,18 +17,21 @@ export class UserControllerServices {
     }
 
     login(account: string, password: string) {
-        var data = `grant_type=password&username=${account}&password=${password}&client_id=ngAuthApp`;
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        return this._http.post(ApiClient.url + `oauth/token`, data, { headers }).toPromise().then(result => result.json());
+        var user = {
+            email: account,
+            password: password
+        }
+        return this._http.post(ApiClient.url + `/users/signin`, user, this._utilities.jwt()).toPromise()
+            .then(result => result.json());
     }
 
     signup(account: UserModel) {
-        return this._http.post(ApiClient.url + `api/account/signup`, account, this._utilities.jwt()).toPromise()
+        return this._http.post(ApiClient.url + `/users/signup`, account, this._utilities.jwt()).toPromise()
             .then(result => result.json());
     }
-    getUserByName(key: string) {
-        return this._http.get(ApiClient.url + `api/account/getbyname?key=${key}`, this._utilities.jwt()).toPromise()
+
+    getUser(key: string) {
+        return this._http.get(ApiClient.url + `/users/getuser?keyword=${key}&skip=0&limit=1`, this._utilities.jwt()).toPromise()
             .then(result => result.json());
     }
 

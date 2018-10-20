@@ -69,7 +69,7 @@ export class Utilities {
 
     jwt(type?: string) {
         // create authorization header with jwt token
-        const token = this.getCookie("SS_U_ID");
+        const token = this.getCookie("TB_U_ID");
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         if (token) headers.append("Authorization", token);
