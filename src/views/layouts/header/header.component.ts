@@ -9,15 +9,17 @@ import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/co
 })
 export class HeaderNavComponent implements OnInit, AfterViewInit {
 
-
+    accounts: any = {};
     constructor() {
 
     }
     ngOnInit() {
+        const key = localStorage.getItem("user-submit");
+        if (key) this.accounts = JSON.parse(key);
 
     }
     ngAfterViewInit() {
-       
+
     }
 
 }

@@ -15,6 +15,7 @@ import { AdminModule } from 'src/_admin/admins.module';
 import { SignupModule } from './view/signup/signup.module';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
+import { UsersModule } from './view/users/users.module';
 
 // Configs 
 let config = new AuthServiceConfig([
@@ -42,6 +43,7 @@ let config = new AuthServiceConfig([
     PlayerDetailModule,
     AdminModule,
     SignupModule,
+    UsersModule,
     SocialLoginModule.initialize(config)
     
   ],

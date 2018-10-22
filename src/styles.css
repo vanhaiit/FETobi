@@ -25,6 +25,21 @@
 .error {
     color: #f00;
 }
+.avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.avatar-large {
+    vertical-align: middle;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+.forcus{
+    background: #ddd;
+}
 
 
 

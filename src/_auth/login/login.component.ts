@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     ) { }
     ngOnInit() {
         const key = localStorage.getItem("user-submit");
-        if (key) this.account = JSON.parse(key), this.display_user = true, this.account.FullName = this.account.FullName.toUpperCase();
+        if (key) this.account = JSON.parse(key), this.display_user = true, this.account.display_name = this.account.display_name.toUpperCase();
 
     }
 
@@ -133,7 +133,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                                     } else {
                                         this.model.password = "private"
                                         this._utilites.setCookie("TB_U_ID", "bearer " + response.data.token.toString(), 30);
-                                        this._userController.getUser(this.model.email).then(async res => {
+                                        this._userController.getUser(this._user.email).then(async res => {
                                             localStorage.setItem("user-submit", JSON.stringify(res.data[0]));
                                             this.load = false;
                                             this.message = "";

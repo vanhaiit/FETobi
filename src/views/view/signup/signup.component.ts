@@ -5,7 +5,6 @@ import { UserControllerServices } from 'src/controllers/users.controllers';
 import { Utilities } from 'src/models/utilities';
 import { Router } from '@angular/router';
 
-declare let toastr: any;
 
 @Component({
     selector: '.content',
