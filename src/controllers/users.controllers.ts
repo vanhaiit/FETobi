@@ -31,7 +31,7 @@ export class UserControllerServices {
     }
 
     getUser(key: string) {
-        return this._http.get(ApiClient.url + `/users/getuser?keyword=${key}&skip=0&limit=1`, this._utilities.jwt()).toPromise()
+        return this._http.get(ApiClient.url + `/users/getuser?keyword=${key}`, this._utilities.jwt()).toPromise()
             .then(result => result.json());
     }
 

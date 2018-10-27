@@ -1,0 +1,129 @@
+<hr class="wide">
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assets/images/bg-02.jpg');">
+    
+</section>
+<section class="bg0 p-t-75 p-b-120">
+    <div class="container">
+        <div class="row p-b-148">
+            <div class="col-md-7 col-lg-8">
+                <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
+                    <h3 class="mtext-111 cl2 p-b-16">
+                        Tạo trận đấu
+                    </h3>
+                    <form autocomplete="off" (ngSubmit)="createSoloMatch(f)" #f="ngForm" id="frm-signup" action="">
+                        <div class="row" *ngIf="display">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name_match" class="requi">
+                                        <span>Tên trận đấu</span>
+                                        <!-- <div style="float:right;" *ngIf="display_name.dirty || display_name.touched">
+                                            <i *ngIf="display_name.invalid" class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="display_name.valid" class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div> -->
+                                    </label>
+                                    <input type="text" [(ngModel)]="model.name_match" #name_match="ngModel" name="name_match"
+                                        class="form-control" id="name_match" required minlength="1" maxlength="32">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contents" class="requi">
+                                        <span>Nội dung mô tả</span>
+                                        <!-- <div style="float:right;" *ngIf="email.dirty || email.touched">
+                                            <i *ngIf="email.invalid" class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="email.valid" class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div> -->
+                                    </label>
+                                    <input type="text" [(ngModel)]="model.contents" #contents="ngModel" name="contents"
+                                        class="form-control" id="contents" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="betting_price" class="requi">
+                                        <span>Giá thách đấu</span>
+                                        <!-- <div style="float:right;" *ngIf="password.dirty || password.touched">
+                                            <i *ngIf="password.invalid" class="fa fa-close" style="color: red;"></i>
+                                            <i *ngIf="password.valid" class="fa fa-check" style="color: #717fe0;"></i>
+                                        </div> -->
+                                    </label>
+                                    <input type="text" [(ngModel)]="model.betting_price" #betting_price="ngModel" name="betting_price"
+                                        class="form-control" id="betting_price" required minlength="6" maxlength="16">
+                                </div>
+                                <div class="form-group">
+                                    <label for="type">
+                                        <span>Hình thức Solo</span>
+
+                                    </label>
+                                    <input type="number" [(ngModel)]="model.type" #type="ngModel" name="type"
+                                        class="form-control" id="type" maxlength="100">
+                                </div>
+                            </div>                          
+                        </div>
+
+                        <div *ngIf="!display">
+                            <div class="row" *ngFor="let i of account_games; let index = index">
+                                <div class="col-md-12">
+                                    <label class="requi">
+                                        <span>Người chơi</span> {{index + 1}}                                     
+                                    </label>
+                                </div>    
+                                <div class="col-md-6">
+                                    <div class="form-group">                                      
+                                        <input type="text" name="nick_name_{{index}}" id="nick_name_{{index}}"
+                                            placeholder="Tên tài khoản" class="form-control" required minlength="1" maxlength="32">
+                                    </div>                                                              
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">                                  
+                                        <input type="text" name="game_id_{{index}}" id="game_id"
+                                            placeholder="Account ID" class="form-control" required minlength="1" maxlength="32">
+                                    </div>                                                              
+                                </div>                               
+                            </div>
+                            <hr>
+                            <div class="col-md-12" style="padding-left: 0%;padding-right: 0%">         
+                                <div class="form-group"> 
+                                    <label for="team_name">
+                                        <span>Tên đội</span> 
+                                    </label>                                 
+                                    <input type="text" name="team_name" id="team_name"
+                                        class="form-control" required minlength="1" maxlength="32">
+                                </div> 
+                            </div>
+                            
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" *ngIf="!display">
+                                    <button (click)="display = true" href="javascript:;" style="width: 50%; float: right;" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                                        Quay lại
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" *ngIf="display">
+                                    <button (click)="btnNextClick()" href="javascript:;" style="width: 50%; float: left;" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                                        Tiếp tục
+                                    </button>
+                                </div>
+                                <div class="form-group" *ngIf="!display">
+                                    <button type="submit" href="javascript:;" style="width: 50%; float: left;" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                                        Tạo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-11 col-md-5 col-lg-4 m-lr-auto">
+                <div class="how-bor1 ">
+                    <div class="hov-img0">
+                        <img src="assets/images/solo.png" alt="IMG">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

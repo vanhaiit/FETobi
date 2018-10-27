@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     ) { }
     ngOnInit() {
         const key = localStorage.getItem("user-submit");
-        if (key) this.account = JSON.parse(key), this.display_user = true, this.account.display_name = this.account.display_name.toUpperCase();
+        if (key) this.account = JSON.parse(key), this.display_user = true, this.account.username = this.account.username.toUpperCase();
 
     }
 
@@ -92,11 +92,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }
 
         this._authService.signIn(socialPlatformProvider).then(async (userData) => {
-            this._user.user_name = userData.email.split("@")[0];
+           // this._user.username = userData.email.split("@")[0];
             this._user.email = userData.email;
-            this._user.display_name = userData.name;
+            this._user.username = userData.name;
             this._user.password = userData.id;
-            this._user.avatar = userData.photoUrl;
+            this._user.avatar_user = userData.photoUrl;
             if (this._user) {
                 this._userController.getUser(this._user.email).then(async res => {
                     if (res.data.length !== 0) {

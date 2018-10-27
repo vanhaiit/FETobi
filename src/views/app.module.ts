@@ -16,6 +16,8 @@ import { SignupModule } from './view/signup/signup.module';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { UsersModule } from './view/users/users.module';
+import { InviteToPlayModule } from './view/invite-to-play/invite-to-play.module';
+import { SoloModule } from './view/solo/solo.module';
 
 // Configs 
 let config = new AuthServiceConfig([
@@ -39,12 +41,16 @@ let config = new AuthServiceConfig([
     AppRoutingModule,
     HttpClientModule,
     LayoutModule,
+    SocialLoginModule.initialize(config),
+
     HomeModule,
     PlayerDetailModule,
     AdminModule,
     SignupModule,
     UsersModule,
-    SocialLoginModule.initialize(config)
+    SocialLoginModule.initialize(config),
+    InviteToPlayModule,
+    SoloModule
     
   ],
   providers: [
