@@ -99,7 +99,11 @@
                                             <input type="email_confirmed" class="form-control" placeholder="Nhập mã xác nhận"
                                                 [(ngModel)]="model.email_confirmed" #email_confirmed="ngModel" name="email_confirmed">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-default" type="submit">Lấy mã xác nhận</button>
+                                                <button class="btn btn-default" style="background: #eee;margin-right: 5px;margin-left: 5px"
+                                                    (click)="cloneCode()">Lấy
+                                                    mã</button>
+                                                <button class="btn btn-default" style="background: #eee" (click)="acceptEmail()">Xác
+                                                    nhận</button>
                                             </div>
                                         </div>
 

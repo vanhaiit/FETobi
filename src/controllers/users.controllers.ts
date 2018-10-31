@@ -42,6 +42,9 @@ export class UserControllerServices {
         return this._http.put(ApiClient.url + `/users/${id}`, user, this._utilities.jwt()).toPromise()
             .then(result => result.json());
     }
+    codeConfirmed(id: string) {
+        return this._http.get(ApiClient.url + `/users/confirmed?userId=${id}`, this._utilities.jwt()).toPromise().then(result => result.json());
+    }
 
 
 }

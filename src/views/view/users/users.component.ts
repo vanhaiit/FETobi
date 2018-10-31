@@ -43,11 +43,19 @@ export class UsersComponent implements OnInit {
         try {
             var results = await this._userController.updateUser(this.model, this.userId);
             results ? this.notification = "cập nhật thành công !" : this.notification = "có lỗi sảy ra vui lòng thử lại ";
-
         } catch (ex) {
-            console.log("có lỗi sảy ra vui lòng thử lại !");
-            // return this._router.navigate(['/don-hang']);
+            alert("có lỗi sảy ra vui lòng thử lại !");
+            return console.log(ex);
         }
         console.log(this.model)
+    }
+    async cloneCode() {
+        try {
+            var results = await this._userController.codeConfirmed(this.userId);
+            // if(results) res 
+
+        } catch (ex) {
+
+        }
     }
 }
