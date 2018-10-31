@@ -16,9 +16,7 @@ const routes: Routes = [
         "path": "",
         "component": ViewComponent,
         "children": [
-            {
-                "path": "user", "component": UsersComponent
-            }
+            { "path": "user/:id", "component": UsersComponent },
         ]
     }
 ];
@@ -33,10 +31,10 @@ const routes: Routes = [
         UsersComponent
     ], exports: [RouterModule],
     providers: [
-        UserControllerServices ,
+        UserControllerServices,
         Utilities
-      ],
+    ],
 })
 export class UsersModule {
-    
+
 }
