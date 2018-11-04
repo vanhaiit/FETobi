@@ -40,6 +40,9 @@
 .forcus{
     background: #ddd;
 }
+.slick-list{
+    max-height: 465px !important;
+}
 
 
 

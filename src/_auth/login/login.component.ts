@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         const key = localStorage.getItem("user-submit");
         if (key) this.account = JSON.parse(key), this.display_user = true, this.account.username = this.account.username.toUpperCase();
-
     }
 
     signOut() {
