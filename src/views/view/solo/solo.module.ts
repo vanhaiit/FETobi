@@ -7,6 +7,7 @@ import { SoloComponent } from './solo.component';
 import { FormsModule } from '@angular/forms';
 import { SoloCreateMatchComponent } from './create-match/solo-create-match.component';
 import { SoloViewListMatchComponent } from './viewlists-match/solo-viewlists-match.component';
+import { SoloMatchDetailComponent } from './detail-match/solo-match-detail.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,9 @@ const routes: Routes = [
             },
             {
                 "path": "solo/solo-create-match", "component": SoloCreateMatchComponent
+            },
+            {
+                "path": "solo/solo-detail-match/:id", "component": SoloMatchDetailComponent
             }
         ]
     }
@@ -34,7 +38,8 @@ const routes: Routes = [
         SoloComponent,
 
         SoloCreateMatchComponent,
-        SoloViewListMatchComponent
+        SoloViewListMatchComponent,
+        SoloMatchDetailComponent
     ], exports: [RouterModule]
 })
 export class SoloModule {

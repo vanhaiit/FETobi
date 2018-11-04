@@ -21,6 +21,11 @@ export class PostControllerServices {
         .then(result => result.json());
     }
 
+    getPostDetail(postId){
+        return this._http.get(ApiClient.url + `/post/${postId}`, this._utilities.jwt()).toPromise()
+        .then(result => result.json());
+    }
+
     createSoloMatch(post : PostModel){
         return this._http.post(ApiClient.url + `/post`, post, this._utilities.jwt()).toPromise()
         .then(result => result.json());

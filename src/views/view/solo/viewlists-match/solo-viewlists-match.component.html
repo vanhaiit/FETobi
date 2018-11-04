@@ -243,11 +243,17 @@
                 <!-- Block2 -->
                 <div class="block2">
                     <div class="block2-pic hov-img0">
-                        <img src="{{soloMatch.post_user[0].avatar_user}}" alt="IMG-PRODUCT">
+                        <img src="{{soloMatch.post_user[0].avatar_user ? soloMatch.post_user[0].avatar_user : 'assets/images/product-10.jpg'}}" alt="IMG-PRODUCT">
 
-                        <a (click)="updateMatch(soloMatch)" href="javascript:void(0)" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                            {{title}}
+                        <a *ngIf="account_login._id === soloMatch.user_id || (account_login._id !== soloMatch.user_id && soloMatch.status !== 1)"
+                            (click)="viewDetailMatch(soloMatch._id)" href="javascript:void(0)" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                            Xem chi tiết
                         </a>
+                        <a *ngIf="account_login._id !== soloMatch.user_id && soloMatch.status === 1"
+                            (click)="viewDetailMatch(soloMatch._id)" href="javascript:void(0)" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                            Tham gia
+                        </a>
+                        
                     </div>
 
                     <div class="block2-txt flex-w flex-t p-t-14">
